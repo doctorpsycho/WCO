@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Contest Entries</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+    <header class="bg-blue-500 text-white text-center py-4">
+        <h1 class="text-3xl font-bold">Contest Entries</h1>
+        <p class="text-lg">View submitted wallpapers for this week's contest!</p>
+    </header>
+
+    <main class="container mx-auto py-8">
+        <section class="contest-entries grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Dynamic entries will be added here using JavaScript -->
+        </section>
+    </main>
+
+    <footer class="bg-blue-500 text-white text-center py-4">
+        <p class="text-sm">&copy; 2023 Wallpaper Contest</p>
+    </footer>
+
+    <script>
+        // Use JavaScript to fetch contest entries and dynamically create HTML elements here
+        fetch('/contestEntries')
+            .then(response => response.json())
+            .then(entriesData => {
+                const entriesContainer = document.querySelector('.contest-entries');
+
+                entriesData.forEach(entry => {
+                    const entryElement = document.createElement('div');
+                    entryElement.classList.add('entry', 'bg-white', 'p-4', 'rounded', 'shadow-md');
+
+                    const imageElement = document.createElement('img');
+                    imageElement.src = entry.imageSrc;
+                    imageElement.alt = 'Wallpaper';
+                    imageElement.classList.add('w-full', 'h-auto', 'object-cover', 'rounded');
+                    entryElement.appendChild(imageElement);
+
+                    const uploadedByElement = document.createElement('p');
+                    uploadedByElement.textContent = `Uploaded by: ${entry.uploadedBy}`;
+                    uploadedByElement.classList.add('font-semibold', 'text-center');
+                    entryElement.appendChild(uploadedByElement);
+
+                    entriesContainer.appendChild(entryElement);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching contest entries:', error);
+            });
+    </script>
+</body>
+
+</html>
