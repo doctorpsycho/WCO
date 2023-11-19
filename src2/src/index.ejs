@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Wallpaper Contest</title>
+    <!-- Include Tailwind CSS -->
+    <link href="/input.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+    <header class="bg-blue-500 text-white text-center py-4">
+        <h1 class="text-3xl font-bold">Welcome to Wallpaper Contest</h1>
+        <p class="text-lg">Here you can look at the wallpapers that we've received so far.</p>
+    </header>
+
+    <main class="container mx-auto py-8">
+        <!-- Your form and contest sections -->
+        <!-- ... (existing HTML form or contest sections if any) ... -->
+
+        <section class="contest-results grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Display uploaded images -->
+            <% uploadedImages.forEach(image => { %>
+                <div class="submission bg-white p-4 rounded shadow-md">
+                    <div class="flex items-center justify-center mb-4">
+                        <img src="/uploads/<%= image %>" alt="Wallpaper" class="w-32 h-32 object-cover rounded">
+                    </div>
+                    <!-- Space for scores -->
+                    <!-- You can add score display logic here -->
+                    <!-- Example: -->
+                    <table class="w-full">
+                        <tr>
+                            <td class="font-semibold">Quality:</td>
+                            <td>8/10</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">Readability:</td>
+                            <td>9/10</td>
+                        </tr>
+                        <!-- Add more score details here -->
+                    </table>
+                </div>
+            <% }); %>
+        </section>
+
+        <!-- Other sections like past contests, next contest, footer, etc. -->
+        <!-- ... (other HTML sections if needed) ... -->
+    </main>
+
+    <footer class="bg-blue-500 text-white text-center py-4">
+        <p class="text-sm">&copy; Official Wallpaper Contest by Farhaad Bukhari</p>
+    </footer>
+</body>
+
+</html>

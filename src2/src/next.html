@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Next Page</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+    <header class="bg-blue-500 text-white text-center py-4">
+        <h1 class="text-3xl font-bold">Uploaded Wallpapers</h1>
+        <p class="text-lg">List of wallpapers submitted for the contest</p>
+    </header>
+
+    <main class="container mx-auto py-8">
+        <section id="imageGallery" class="grid grid-cols-3 gap-4"></section>
+    </main>
+
+    <footer class="bg-blue-500 text-white text-center py-4">
+        <p class="text-sm">&copy; 2023 Wallpaper Contest</p>
+    </footer>
+
+    <script>
+        async function getImages() {
+            try {
+                const response = await fetch('/getImages');
+                if (response.ok) {
+                    const images = await response.json();
+                    const imageGallery = document
+                    .getElementById('imageGallery');
+
+                    // Clear existing images
+                    imageGallery.innerHTML = '';
+
+                    // Display fetched images
+                    images.forEach(image => {
+                        const imgElement = document.createElement('img');
+                        imgElement.src = `uploads/${image}`;
+                        imgElement.alt = 'Wallpaper';
+                        imgElement.classList.add('w-full', 'h-auto');
+
+                        // Append image to the gallery
+                        imageGallery.appendChild(imgElement);
+                    });
+                } else {
+                    throw new Error('Failed to fetch images');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        // Call getImages function initially to populate the gallery
+        getImages();
+
+        // Function to periodically check for new images
+        setInterval(getImages, 100); // Adjust the interval as needed
+    </script>
+</body>
+</html>
